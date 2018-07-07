@@ -77,7 +77,7 @@ public class ChatActivity extends AppCompatActivity
                         startActivity(intent);
                     }
                     else
-                        Toast.makeText(this, "Acceso no correcto", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "La contraseña no es correcta", Toast.LENGTH_SHORT).show();
 
                     break;
 
