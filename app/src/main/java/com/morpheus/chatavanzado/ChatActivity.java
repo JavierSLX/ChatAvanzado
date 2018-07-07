@@ -1,8 +1,10 @@
 package com.morpheus.chatavanzado;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,16 +14,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.morpheus.chatavanzado.Entidades.Credencial;
 import com.morpheus.chatavanzado.WebService.Constantes;
 import com.morpheus.chatavanzado.WebService.VolleyRP;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ChatActivity extends AppCompatActivity
 {
     private EditText edtUsuario, edtContraseña;
-    private Button btIngresar;
-    private String url = Constantes.HOST + "login_GETUSER.php";
     private VolleyRP volleyRP;
     private RequestQueue requestQueue;
 
@@ -37,14 +39,14 @@ public class ChatActivity extends AppCompatActivity
 
         edtUsuario = (EditText)findViewById(R.id.edtUsuario);
         edtContraseña = (EditText)findViewById(R.id.edtContraseña);
-        btIngresar = (Button)findViewById(R.id.btIngresar);
+        Button btIngresar = (Button)findViewById(R.id.btIngresar);
 
         btIngresar.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                url += "?user=" + edtUsuario.getText().toString().trim();
+                String url = Constantes.HOST + "login_GETUSER.php?user=" + edtUsuario.getText().toString().trim();
                 solicitudJSON(url);
             }
         });
@@ -52,7 +54,48 @@ public class ChatActivity extends AppCompatActivity
 
     public void verificarLogin(JSONObject datos)
     {
-        Toast.makeText(this, datos.toString(), Toast.LENGTH_SHORT).show();
+        try
+        {
+            String resultado = datos.getString("resultado");
+
+            //Las distintas respuestas del JSON
+            switch (resultado)
+            {
+                //Cuando existe el usuario
+                case "CC":
+                    //Se obtiene el JSON de datos
+                    JSONObject usuario = datos.getJSONObject("datos");
+
+                    //Saca los datos del usuario y verifica el logeo
+                    Credencial credencial = new Credencial(usuario.getString("id").trim(), usuario.getString("usuario").trim(), usuario.getString("pass").trim());
+
+                    if(credencial.getUser().equals(edtUsuario.getText().toString().trim()) && credencial.getPass().equals(edtContraseña.getText().toString().trim()))
+                    {
+                        //Inicializa la nueva actividad (pasandole la credencial)
+                        Intent intent = new Intent(this, NewActivity.class);
+                        intent.putExtra("CREDENCIAL", credencial);
+                        startActivity(intent);
+                    }
+                    else
+                        Toast.makeText(this, "Acceso no correcto", Toast.LENGTH_SHORT).show();
+
+                    break;
+
+                //Cuando no existe el usuario
+                case "SU":
+                    Toast.makeText(this, "El usuario no existe", Toast.LENGTH_SHORT).show();
+                    break;
+
+                //Cuando no se le mando un usuario a la URL
+                case "SD":
+                    Toast.makeText(this, "Error al ingresar la URL", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        } catch (JSONException e)
+        {
+            e.printStackTrace();
+            Toast.makeText(this, "Error JSON Login", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void solicitudJSON(String url)
