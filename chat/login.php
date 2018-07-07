@@ -1,9 +1,6 @@
 <?php
     require 'Database.php';
 
-    //Manda llamar los elementos de la consulta
-    Registro::obtenerTodosLosUsuarios();
-
     class Registro
     {
         function __construct()
@@ -11,6 +8,7 @@
             
         }
 
+        //Metodo que regresa todos los elementos
         public static function obtenerTodosLosUsuarios()
         {
             $consulta = "SELECT * FROM login";
@@ -20,8 +18,28 @@
             $resultado->execute();
 
             $json = $resultado->fetchAll(PDO::FETCH_ASSOC);
-            echo json_encode($json);
-    
+
+            return $json;
+        }
+
+        //Método que regresa los elementos por su usuario
+        public static function obtenerDatosPorUser($usuario)
+        {
+            $consulta = "SELECT * FROM login WHERE usuario = ?";
+
+            //Prepara la consulta y la ejecuta
+            try
+            {
+                $resultado = Database::getInstance()->getDB()->prepare($consulta);
+                $resultado->execute(array($usuario));
+
+                $json = $resultado->fetch(PDO::FETCH_ASSOC);
+                return $json;
+            }catch(PDOException $e)
+            {
+                //Cuando no obtiene nada regresa un false
+                return false;
+            }
         }
     }
 ?>
