@@ -39,11 +39,13 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btEnviar"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/appBarLayout"
-        tools:listitem="@layout/item_mensaje"/>
+        tools:listitem="@layout/item_mensaje"
+        android:padding="10dp"/>
 
 </RelativeLayout>

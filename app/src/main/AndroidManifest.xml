@@ -15,7 +15,7 @@
         </activity>
         <activity android:name=".NewActivity">
         </activity>
-        <activity android:name=".Mensajeria"
+        <activity android:name=".Mensajes.Mensajeria"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -8,18 +8,21 @@
     card_view:cardElevation="0dp">
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/out_message_bg"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/txtMensaje"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hola amigos como están"
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/txtHora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="12:00 pm"
