@@ -38,13 +38,13 @@ public class Mensajeria extends AppCompatActivity
         mensajeDeTextos = new ArrayList<>();
 
         //Crea una lista de mensajes auxiliares
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 20; i++)
         {
             MensajeDeTexto mensajeDeTexto = new MensajeDeTexto();
 
             mensajeDeTexto.setId(String.valueOf(i));
             mensajeDeTexto.setMensaje("Hola " + i);
-            mensajeDeTexto.setTipoMensaje(true);
+            mensajeDeTexto.setTipoMensaje(i % 2 == 0);
             mensajeDeTexto.setHora("10:34");
 
             mensajeDeTextos.add(mensajeDeTexto);
