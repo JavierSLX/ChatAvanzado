@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:hint="Escribe un mensaje..."
-        android:layout_toStartOf="@+id/btEnviar"/>
+        android:layout_toStartOf="@+id/btEnviar"
+        android:hint="Escribe un mensaje..."/>
 
     <Button
         android:id="@+id/btEnviar"
@@ -24,11 +24,13 @@
         android:text="Enviar"/>
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="?attr/homeAsUpIndicator">
@@ -39,9 +41,9 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/appBarLayout"
-        android:layout_alignParentStart="true"
         android:layout_above="@+id/btEnviar"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/appBarLayout"
         tools:listitem="@layout/item_mensaje"/>
 
 </RelativeLayout>

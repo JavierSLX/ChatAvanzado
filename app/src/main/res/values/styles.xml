@@ -13,4 +13,13 @@
         <item name="colorButtonNormal">#E90D2A</item>
     </style>
 
+    <!-- Quita la barra de accion -->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Da color blanco a los elementos de la barra -->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
 </resources>
