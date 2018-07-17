@@ -11,7 +11,7 @@
         //Metodo que regresa todos los elementos
         public static function obtenerTodosLosUsuarios()
         {
-            $consulta = "SELECT * FROM login";
+            $consulta = "SELECT * FROM acceso";
 
             //Prepara la consulta y la ejecuta
             $resultado = Database::getInstance()->getDB()->prepare($consulta);
@@ -25,7 +25,7 @@
         //Método que regresa los elementos por su usuario
         public static function obtenerDatosPorUser($usuario)
         {
-            $consulta = "SELECT * FROM login WHERE usuario = ?";
+            $consulta = "SELECT * FROM acceso WHERE usuario = ?";
 
             //Prepara la consulta y la ejecuta
             try
@@ -40,6 +40,16 @@
                 //Cuando no obtiene nada regresa un false
                 return false;
             }
+        }
+
+        //Metodo que registra un nuevo usuario
+        public static function insertarNuevoUsuario($usuario, $pass)
+        {
+            $consulta = "INSERT INTO acceso(usuario, pass) VALUES(?, ?)";
+
+            //Prepara la insercion y le manda los elementos
+            $resultado = Database::getInstance()->getDB()->prepare($consulta);
+            return $resultado->execute(array($usuario, $pass));
         }
     }
 ?>
