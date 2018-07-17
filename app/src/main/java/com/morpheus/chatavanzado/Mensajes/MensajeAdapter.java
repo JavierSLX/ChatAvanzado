@@ -49,29 +49,46 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MensajeH
         //holder.setIsRecyclable(false);
 
         //Cuando el mensaje es entrante cambia el color y la posicion de aparicion
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)holder.cardView.getLayoutParams();
-        FrameLayout.LayoutParams frameParams = (FrameLayout.LayoutParams)holder.container.getLayoutParams();
+        RelativeLayout.LayoutParams layoutParamsCard = (RelativeLayout.LayoutParams)holder.cardView.getLayoutParams();
+        FrameLayout.LayoutParams frameParamsLinear = (FrameLayout.LayoutParams)holder.container.getLayoutParams();
+
+        LinearLayout.LayoutParams linearParamsHora = (LinearLayout.LayoutParams)holder.txtHora.getLayoutParams();
+        LinearLayout.LayoutParams linearParamsMensaje = (LinearLayout.LayoutParams)holder.txtMensaje.getLayoutParams();
+
+        //EMISOR
         if(!mensajeDeTextos.get(position).isTipoMensaje())
         {
             holder.container.setBackgroundResource(R.drawable.in_message_bg);
 
             //Se obtienen los parametros de la cardview (y lo manda a la derecha)
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 0);
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            frameParams.gravity = Gravity.RIGHT;
+            layoutParamsCard.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 0);
+            layoutParamsCard.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            frameParamsLinear.gravity = Gravity.RIGHT;
+
+            //Parametros de ubicacion de la fecha y mensaje
+            linearParamsHora.gravity = Gravity.RIGHT;
+            linearParamsMensaje.gravity = Gravity.RIGHT;
+            holder.txtMensaje.setGravity(Gravity.RIGHT);
         }
+        //RECEPTOR
         else
         {
             holder.container.setBackgroundResource(R.drawable.out_message_bg);
 
             //Se obtienen los parametros de la cardview (y lo manda a la izquierda)
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-            frameParams.gravity = Gravity.RIGHT;
+            layoutParamsCard.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
+            layoutParamsCard.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            frameParamsLinear.gravity = Gravity.LEFT;
+
+            //Parametros de ubicacion de la fecha
+            linearParamsHora.gravity = Gravity.LEFT;
+            linearParamsMensaje.gravity = Gravity.LEFT;
         }
 
-        holder.cardView.setLayoutParams(layoutParams);
-        holder.container.setLayoutParams(frameParams);
+        holder.cardView.setLayoutParams(layoutParamsCard);
+        holder.container.setLayoutParams(frameParamsLinear);
+        holder.txtHora.setLayoutParams(linearParamsHora);
+        holder.txtMensaje.setLayoutParams(linearParamsMensaje);
 
         holder.container.setOnClickListener(new View.OnClickListener()
         {
