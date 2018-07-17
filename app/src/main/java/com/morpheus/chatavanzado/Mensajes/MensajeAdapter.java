@@ -3,9 +3,11 @@ package com.morpheus.chatavanzado.Mensajes;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,24 +46,32 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MensajeH
         holder.txtMensaje.setText(mensajeDeTextos.get(position).getMensaje());
         holder.txtHora.setText(mensajeDeTextos.get(position).getHora());
 
+        //holder.setIsRecyclable(false);
+
         //Cuando el mensaje es entrante cambia el color y la posicion de aparicion
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)holder.cardView.getLayoutParams();
+        FrameLayout.LayoutParams frameParams = (FrameLayout.LayoutParams)holder.container.getLayoutParams();
         if(!mensajeDeTextos.get(position).isTipoMensaje())
         {
             holder.container.setBackgroundResource(R.drawable.in_message_bg);
 
             //Se obtienen los parametros de la cardview (y lo manda a la derecha)
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            frameParams.gravity = Gravity.RIGHT;
         }
         else
         {
             holder.container.setBackgroundResource(R.drawable.out_message_bg);
 
             //Se obtienen los parametros de la cardview (y lo manda a la izquierda)
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            frameParams.gravity = Gravity.RIGHT;
         }
 
         holder.cardView.setLayoutParams(layoutParams);
+        holder.container.setLayoutParams(frameParams);
 
         holder.container.setOnClickListener(new View.OnClickListener()
         {

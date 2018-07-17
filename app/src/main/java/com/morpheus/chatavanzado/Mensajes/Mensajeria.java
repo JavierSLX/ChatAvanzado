@@ -38,7 +38,7 @@ public class Mensajeria extends AppCompatActivity
         mensajeDeTextos = new ArrayList<>();
 
         //Crea una lista de mensajes auxiliares
-        for(int i = 0; i < 20; i++)
+        for(int i = 0; i < 50; i++)
         {
             MensajeDeTexto mensajeDeTexto = new MensajeDeTexto();
 
